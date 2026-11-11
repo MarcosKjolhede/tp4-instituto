@@ -1,5 +1,6 @@
-DELETE IF EXIST instituto;
-CREATE instituto;
+DROP DATABASE IF EXISTS instituto;
+CREATE DATABASE instituto;
+USE instituto;
 
 CREATE TABLE curso(
     id_curso INT AUTO_INCREMENT,
