@@ -3,14 +3,17 @@ package datos;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import io.github.cdimascio.dotenv.Dotenv;
 
-public class Conexion { 
-    private static final String URL= "jdbc:mysql://localhost:3306/institutos";
-    private static final String USUARIO= "root";
-    private static final String CLAVE= " ";
+public class Conexion {
+    private static final Dotenv dotenv = Dotenv.load();
 
-    public static Connection abrir() throws SQLException{
-        return DriverManager.getConnection(URL, USUARIO, CLAVE);
-    } 
+    private static final String URL = dotenv.get("DB_URL");
+    private static final String USER = dotenv.get("DB_USER");
+    private static final String PASS = dotenv.get("DB_PASS");
+
+    public static Connection abrir() throws SQLException {
+        return DriverManager.getConnection(URL, USER, PASS);
+    }
     
 }
