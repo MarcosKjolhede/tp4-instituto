@@ -1,4 +1,53 @@
 package modelo;
 
 public class Alumno {
+    private int id_alumno;
+    private String nombre;
+    private String apellido;
+    private String dni;
+    private String correo; // puede ser null
+
+    public Alumno(int id_alumno, String nombre, String apellido, String dni, String correo) {
+        this.id_alumno = id_alumno;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.dni = dni;
+        this.correo = correo;
+    }
+
+    public int getId_alumno() { 
+        return id_alumno; 
+    }
+    public void setId_alumno(int id_alumno) { 
+        this.id_alumno = id_alumno; 
+    }
+    public String getNombre() { 
+        return nombre; 
+    }
+    public void setNombre(String nombre) { 
+        this.nombre = nombre; 
+    }
+    public String getApellido() { 
+        return apellido; 
+    }
+    public void setApellido(String apellido) { 
+        this.apellido = apellido; 
+    }
+    public String getDni() { 
+        return dni; 
+    }
+    public void setDni(String dni) { 
+        this.dni = dni; 
+    }
+    public String getCorreo() { 
+        return correo; 
+    }
+    public void setCorreo(String correo) { 
+        this.correo = correo; 
+    }
+
+    @Override
+    public String toString() {
+        return apellido + ", " + nombre + " (DNI " + dni + ")";
+    }
 }
