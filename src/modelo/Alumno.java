@@ -7,12 +7,20 @@ public class Alumno {
     private String dni;
     private String correo; // puede ser null
 
-    public Alumno(int id_alumno, String nombre, String apellido, String dni, String correo) {
-        this.id_alumno = id_alumno;
+    public  Alumno(String nombre, String apellido, String dni, String correo){
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
-        this.correo = correo;
+        this.correo = (correo != null && correo.isBlank()) ? null : correo;
+    }
+
+    public Alumno(String nombre, String apellido, String dni){
+        this(nombre, apellido, dni, null);
+    }
+
+    public Alumno(int id_alumno, String nombre, String apellido, String dni, String correo){
+        this(nombre, apellido, dni, correo);
+        this.id_alumno = id_alumno;
     }
 
     public int getId_alumno() { 
