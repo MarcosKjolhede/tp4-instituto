@@ -12,7 +12,7 @@ public class Conexion {
     private static final String USER = dotenv.get("DB_USER");
     private static final String PASS = dotenv.get("DB_PASS");
 
-    public static Connection conectar() throws SQLException {
+    public static Connection abrir() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASS);
     }
     
