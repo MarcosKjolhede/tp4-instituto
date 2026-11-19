@@ -7,18 +7,26 @@ public class Curso {
     private String idioma;
     private String nivel;
     private String turno;
+    private int id_curso;
     private int cupo;
     private BigDecimal cuota;
     private int vacantes;
 
-    public Curso(String codigo, String idioma, String nivel, String turno, int cupo, BigDecimal cuota, int vacantes) {
-        this.codigo = codigo;
+    public Curso(int id_curso, String codigo, String idioma, String nivel, String turno, int cupo, BigDecimal cuota, int vacantes) {
+        
+        this.id_curso = id_curso;
         this.idioma = idioma;
         this.nivel = nivel;
         this.turno = turno;
         this.cupo = cupo;
         this.cuota = cuota;
         this.vacantes = vacantes;
+    }
+    public int getIdCurso() { 
+        return id_curso; 
+    }
+    public void setIdCurso(int id_curso) { 
+        this.id_curso = id_curso; 
     }
 
     public String getCodigo() { 
