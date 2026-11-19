@@ -1,25 +1,25 @@
 package modelo;
 
 public class Alumno {
-    private int id;
+    private int id_alumno;
     private String nombre;
     private String apellido;
     private String dni;
     private String correo; // puede ser null
 
-    public Alumno(int id, String nombre, String apellido, String dni, String correo) {
-        this.id = id;
+    public Alumno(int id_alumno, String nombre, String apellido, String dni, String correo) {
+        this.id_alumno = id_alumno;
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
         this.correo = correo;
     }
 
-    public int getId() { 
-        return id; 
+    public int getId_alumno() { 
+        return id_alumno; 
     }
-    public void setId(int id) { 
-        this.id = id; 
+    public void setId_alumno(int id_alumno) { 
+        this.id_alumno = id_alumno; 
     }
     public String getNombre() { 
         return nombre; 
