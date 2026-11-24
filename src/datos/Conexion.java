@@ -6,7 +6,8 @@ import java.sql.SQLException;
 import io.github.cdimascio.dotenv.Dotenv;
 
 public class Conexion {
-    private static final Dotenv dotenv = Dotenv.load();
+    // System.out.println(System.getProperty("user.dir"));
+    private static final Dotenv dotenv = Dotenv.configure().directory("C:\\Users\\marco\\OneDrive\\Documentos\\UTN_Tup\\ProgII\\Ejercicios\\tp4-instituto\\src\\sources\\").ignoreIfMissing().load();
 
     private static final String URL = dotenv.get("DB_URL");
     private static final String USER = dotenv.get("DB_USER");
@@ -15,5 +16,4 @@ public class Conexion {
     public static Connection abrir() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASS);
     }
-    
 }
