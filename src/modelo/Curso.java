@@ -76,5 +76,7 @@ public class Curso {
     public int getInscriptos() { return cupo - vacantes; }
 
     @Override
-    public String toString() { return codigo; }
+    public String toString() {
+        return codigo + " — " + idioma + " " + nivel + " (" + turno + ")"; 
+    }
 }
