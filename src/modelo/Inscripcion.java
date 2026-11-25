@@ -3,37 +3,31 @@ package modelo;
 import java.time.LocalDate;
 
 public class Inscripcion {
-    private int id;
-    private int alumnoId;
-    private String cursoCodigo;
+    
+    private int id_alumno;
+    private int id_curso;
     private LocalDate fecha;
     private boolean cuotaPaga;
 
-    public Inscripcion(int id, int alumnoId, String cursoCodigo, LocalDate fecha, boolean cuotaPaga) {
-        this.id = id;
-        this.alumnoId = alumnoId;
-        this.cursoCodigo = cursoCodigo;
+    public Inscripcion(int id_alumno, int id_curso, LocalDate fecha, boolean cuotaPaga) {
+        
+        this.id_alumno = id_alumno;
+        this.id_curso = id_curso;
         this.fecha = fecha;
         this.cuotaPaga = cuotaPaga;
     }
 
-    public int getId() { 
-        return id; 
+    public int getId_alumno() { 
+        return id_alumno; 
     }
-    public void setId(int id) { 
-        this.id = id; 
+    public void setId_alumno(int id_alumno) { 
+        this.id_alumno = id_alumno; 
     }
-    public int getAlumnoId() { 
-        return alumnoId; 
+    public int getId_curso() { 
+        return id_curso; 
     }
-    public void setAlumnoId(int alumnoId) { 
-        this.alumnoId = alumnoId; 
-    }
-    public String getCursoCodigo() { 
-        return cursoCodigo; 
-    }
-    public void setCursoCodigo(String cursoCodigo) { 
-        this.cursoCodigo = cursoCodigo; 
+    public void setId_curso(int id_curso) { 
+        this.id_curso = id_curso; 
     }
     public LocalDate getFecha() {
         return fecha; 

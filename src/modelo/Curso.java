@@ -15,6 +15,7 @@ public class Curso {
     public Curso(int id_curso, String codigo, String idioma, String nivel, String turno, int cupo, BigDecimal cuota, int vacantes) {
         
         this.id_curso = id_curso;
+        this.codigo = codigo;
         this.idioma = idioma;
         this.nivel = nivel;
         this.turno = turno;

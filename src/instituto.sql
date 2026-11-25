@@ -29,13 +29,12 @@ CREATE TABLE alumno (
 );
 
 CREATE TABLE inscripcion (
-    id INT AUTO_INCREMENT,
+    
     id_alumno INT NOT NULL,
     id_curso INT NOT NULL,
     fecha DATE NOT NULL DEFAULT (CURRENT_DATE()),
     cuota_paga BOOLEAN NOT NULL DEFAULT FALSE,
-    CONSTRAINT pk_inscripcion PRIMARY KEY (id),
-    CONSTRAINT uq_inscripcion_alumno_curso UNIQUE (id_alumno, id_curso),
+    CONSTRAINT pk_inscripcion PRIMARY KEY (id_alumno, id_curso),
     CONSTRAINT fk_inscripcion_alumno FOREIGN KEY (id_alumno) REFERENCES alumno(id_alumno),
     CONSTRAINT fk_inscripcion_curso FOREIGN KEY (id_curso) REFERENCES curso(id_curso)
 );
