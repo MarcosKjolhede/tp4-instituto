@@ -13,8 +13,12 @@ public class Instituto {
         System.out.println(dotenv.get("DB_PASS", "Valor por defecto"));
 
         // D.2: red de seguridad. Si se escapara algo inesperado
-        Thread.setDefaultUncaughtExceptionHandler((hilo, error) ->
-                JOptionPane.showMessageDialog(null, "Ocurrio un error inesperado. La aplicación sigue funcionando " , "Error", JOptionPane.ERROR_MESSAGE));
+        Thread.setDefaultUncaughtExceptionHandler((hilo, error) -> {
+            System.err.println("(error inesperado) " + error); // una línea para nosotros
+            SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(null,
+                    "Ocurrió un error inesperado. La aplicación sigue funcionando.",
+                    "Error", JOptionPane.ERROR_MESSAGE));
+        });
 
         SwingUtilities.invokeLater(() -> {
             try {
