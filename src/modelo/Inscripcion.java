@@ -1,40 +1,34 @@
 package modelo;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Inscripcion {
-    private int id;
-    private int alumnoId;
-    private String cursoCodigo;
+    private int idAlumno;
+    private int idCurso;
     private LocalDate fecha;
     private boolean cuotaPaga;
 
-    public Inscripcion(int id, int alumnoId, String cursoCodigo, LocalDate fecha, boolean cuotaPaga) {
-        this.id = id;
-        this.alumnoId = alumnoId;
-        this.cursoCodigo = cursoCodigo;
+    public Inscripcion(int idAlumno, int idCurso, LocalDate fecha, boolean cuotaPaga) {
+        this.idAlumno= idAlumno;
+        this.idCurso = idCurso;
         this.fecha = fecha;
         this.cuotaPaga = cuotaPaga;
     }
+    public Inscripcion(int idAlumno, int idCurso){
+        this(idAlumno, idCurso, LocalDate.now(),false);
+    }
 
-    public int getId() { 
-        return id; 
+    public int getIdAlumno() {
+        return idAlumno;
     }
-    public void setId(int id) { 
-        this.id = id; 
+    public void setIdAlumno(int idAlumno) {
+        this.idAlumno = idAlumno;
     }
-    public int getAlumnoId() { 
-        return alumnoId; 
+    public int getIdCurso() {
+        return idCurso;
     }
-    public void setAlumnoId(int alumnoId) { 
-        this.alumnoId = alumnoId; 
-    }
-    public String getCursoCodigo() { 
-        return cursoCodigo; 
-    }
-    public void setCursoCodigo(String cursoCodigo) { 
-        this.cursoCodigo = cursoCodigo; 
-    }
+    public void setIdCurso(int idCurso) {this.idCurso = idCurso;}
     public LocalDate getFecha() {
         return fecha; 
     }
@@ -46,5 +40,22 @@ public class Inscripcion {
     }
     public void setCuotaPaga(boolean cuotaPaga) { 
         this.cuotaPaga = cuotaPaga; 
+    }
+
+    //La identidad de una inscripcion es el par de idAlumno y idCurso que es la clave primaria compuestas en la BD
+    @Override
+    public boolean equals(Object obj){
+        if(this==obj)return true;
+        if(obj==null || getClass()!=obj.getClass())return false;
+        Inscripcion otra = (Inscripcion) obj;
+        return idAlumno== otra.idAlumno && idCurso == otra.idCurso;
+    }
+    @Override
+    public int hashCode(){
+        return Objects.hash(idAlumno,idCurso);
+    }
+    @Override
+    public String toString(){
+        return "Inscripcion Alumno: "+idAlumno+", Curso: "+idCurso+", Fecha: "+fecha+", cuotapaga: "+cuotaPaga;
     }
 }
