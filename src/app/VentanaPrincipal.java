@@ -49,7 +49,7 @@ public class VentanaPrincipal extends JFrame{
     private JButton btnInformeDeudores;
 
     /** Código del curso elegido: lo comparten la tabla y el combo para estar siempre sincronizados. */
-    private String codigoElegido = null;
+    private int idCursoElegido = -1;
     /** Si se acaba de crear un alumno, el combo lo deja seleccionado después de refrescar. */
     private int alumnoAElegir = -1;
     /** Evita que los listeners se disparen cuando es el programa (y no el usuario) quien cambia la selección. */
@@ -158,7 +158,7 @@ public class VentanaPrincipal extends JFrame{
                 int vista = tablaCursos.getSelectedRow();
                 if (vista >= 0) {
                     Curso curso = modeloTablaCursos.getCurso(tablaCursos.convertRowIndexToModel(vista));
-                    elegirCurso(curso.getCodigo());
+                    elegirCurso(curso.getIdCurso());
                 }
             }
         });
@@ -166,7 +166,7 @@ public class VentanaPrincipal extends JFrame{
         comboCursos.addActionListener(e -> {
             Curso curso = (Curso) comboCursos.getSelectedItem();
             if (!actualizando && curso != null) {
-                elegirCurso(curso.getCodigo());
+                elegirCurso(curso.getIdCurso());
             }
         });
     }
@@ -211,29 +211,29 @@ public class VentanaPrincipal extends JFrame{
         }
 
         // Se conserva el curso elegido; si ya no existe, se elige el primero
-        if (modeloTablaCursos.indiceDe(codigoElegido) >= 0) {
-            elegirCurso(codigoElegido);
+        if (modeloTablaCursos.indiceDe(idCursoElegido) >= 0) {
+            elegirCurso(idCursoElegido);
         } else if (!cursos.isEmpty()) {
-            elegirCurso(cursos.get(0).getCodigo());
+            elegirCurso(cursos.get(0).getIdCurso());
         } else {
-            codigoElegido = null;
+            idCursoElegido = -1;
             cargarInscriptos();
         }
     }
 
     /** Deja elegido el mismo curso en la tabla y en el combo, y carga sus inscriptos. */
-    private void elegirCurso(String codigo) {
-        codigoElegido = codigo;
+    private void elegirCurso(int idCurso) {
+        idCursoElegido = idCurso;
         boolean anterior = actualizando;
         actualizando = true;
         try {
-            int fila = modeloTablaCursos.indiceDe(codigo);
+            int fila = modeloTablaCursos.indiceDe(idCurso);
             if (fila >= 0) {
                 int vista = tablaCursos.convertRowIndexToView(fila);
                 tablaCursos.setRowSelectionInterval(vista, vista);
             }
             for (int i = 0; i < comboCursos.getItemCount(); i++) {
-                if (comboCursos.getItemAt(i).getCodigo().equals(codigo)) {
+                if (comboCursos.getItemAt(i).getIdCurso() == idCurso) {
                     comboCursos.setSelectedIndex(i);
                     break;
                 }
@@ -245,12 +245,12 @@ public class VentanaPrincipal extends JFrame{
     }
 
     private void cargarInscriptos() {
-        if (codigoElegido == null) {
+        if (idCursoElegido == -1) {
             modeloTablaInscriptos.setFilas(List.of());
             return;
         }
         try {
-            modeloTablaInscriptos.setFilas(inscripcionDAO.listarPorCurso(codigoElegido));
+            modeloTablaInscriptos.setFilas(inscripcionDAO.listarPorCurso(idCursoElegido));
         } catch (InstitutoException e) {
             modeloTablaInscriptos.setFilas(List.of());
             mostrarError(e);
@@ -266,7 +266,7 @@ public class VentanaPrincipal extends JFrame{
         } finally {
             actualizando = false;
         }
-        codigoElegido = null;
+        idCursoElegido = -1;
         modeloTablaInscriptos.setFilas(List.of());
     }
 
@@ -326,7 +326,7 @@ public class VentanaPrincipal extends JFrame{
             return;
         }
         try {
-            inscripcionDAO.inscribir(alumno.getId_alumno(), curso.getCodigo());
+            inscripcionDAO.inscribir(alumno.getId_alumno(), curso.getIdCurso());
             JOptionPane.showMessageDialog(this,
                     "Se inscribió a " + alumno.getApellido() + ", " + alumno.getNombre() + " en " + curso.getCodigo() + ".",
                     "Listo", JOptionPane.INFORMATION_MESSAGE);
@@ -350,7 +350,7 @@ public class VentanaPrincipal extends JFrame{
             return;
         }
         try {
-            inscripcionDAO.borrar(fila.id_inscipcion());
+            inscripcionDAO.borrar(fila.id_alumno(),idCursoElegido);
         } catch (InstitutoException e) {
             mostrarError(e);
         }
@@ -364,7 +364,7 @@ public class VentanaPrincipal extends JFrame{
             return;
         }
         try {
-            Inscripcion inscripcion = inscripcionDAO.buscarPorId(fila.id_inscipcion());
+            Inscripcion inscripcion = inscripcionDAO.buscar(fila.id_alumno(),idCursoElegido);
             if (inscripcion == null) {
                 aviso("La inscripción ya no existe.");
             } else {

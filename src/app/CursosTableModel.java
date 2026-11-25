@@ -23,9 +23,9 @@ public class CursosTableModel extends AbstractTableModel {
     public Curso getCurso(int fila) { return cursos.get(fila); }
 
     /** Fila (del modelo) del curso con ese código, o -1. */
-    public int indiceDe(String codigo) {
+    public int indiceDe(int idCurso) {
         for (int i = 0; i < cursos.size(); i++) {
-            if (cursos.get(i).getCodigo().equals(codigo)) {
+            if (cursos.get(i).getIdCurso() == idCurso) {
                 return i;
             }
         }
