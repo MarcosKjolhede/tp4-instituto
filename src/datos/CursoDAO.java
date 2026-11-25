@@ -27,17 +27,16 @@ public class CursoDAO {
 
     //Un curso nuevo empieza con todo vacante, esta liberado (vacantes = cupo)
     public void insertar(Curso c) throws InstitutoException{
-        String sql = "INSERT INTO curso (id_curso, codigo, idioma, nivel, turno, cupo, cuota, vacantes)" + " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO curso (codigo, idioma, nivel, turno, cupo, cuota, vacantes)" + " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try(Connection con = Conexion.abrir();
             PreparedStatement ps = con.prepareStatement(sql)){
-                ps.setInt(1, c.getIdCurso());
-                ps.setString(2, c.getCodigo());
-                ps.setString(3, c.getIdioma());
-                ps.setString(4, c.getNivel());
-                ps.setString(5, c.getTurno());
-                ps.setInt(6, c.getCupo());
-                ps.setBigDecimal(7, c.getCuota());
-                ps.setInt(8, c.getCupo());
+                ps.setString(1, c.getCodigo());
+                ps.setString(2, c.getIdioma());
+                ps.setString(3, c.getNivel());
+                ps.setString(4, c.getTurno());
+                ps.setInt(5, c.getCupo());
+                ps.setBigDecimal(6, c.getCuota());
+                ps.setInt(7, c.getCupo());
                 ps.executeUpdate();
             }catch(SQLException e){
                 throw TraductorDeErrores.traducir(e);
@@ -77,6 +76,6 @@ public class CursoDAO {
     }
 
     private Curso armar(ResultSet rs) throws SQLException{
-        return new Curso(rs.getInt("id_codigo"), rs.getString("codigo"), rs.getString("idioma"), rs.getString("nivel"), rs.getString("turno"), rs.getInt("cupo"), rs.getBigDecimal("cuota"), rs.getInt("vacante"));
+        return new Curso(rs.getInt("id_curso"), rs.getString("codigo"), rs.getString("idioma"), rs.getString("nivel"), rs.getString("turno"), rs.getInt("cupo"), rs.getBigDecimal("cuota"), rs.getInt("vacantes"));
     }
 }

@@ -13,7 +13,7 @@ import java.util.List;
 public class AlumnoDAO {
   
     public List<Alumno> listar() throws InstitutoException{
-        String sql ="SELET id_alumno, nombre, apellido, dni, correo FROM alumno ORDER BY apellido, nombre";
+        String sql ="SELECT id_alumno, nombre, apellido, dni, correo FROM alumno ORDER BY apellido, nombre";
         List<Alumno> lista = new ArrayList<>();
         try(Connection con = Conexion.abrir();
             PreparedStatement ps = con.prepareStatement(sql);
@@ -29,7 +29,7 @@ public class AlumnoDAO {
 
     //Devuelve null si no exite
     public Alumno buscarPorId(int id_alumno) throws InstitutoException{
-        String sql = "SELECT id_alumno, nombre, apellido, dni, correo FROM alumno where id = ?";
+        String sql = "SELECT id_alumno, nombre, apellido, dni, correo FROM alumno where id_alumno = ?";
         try(Connection con = Conexion.abrir();
             PreparedStatement ps = con.prepareStatement(sql)){
                 ps.setInt(1,id_alumno);
