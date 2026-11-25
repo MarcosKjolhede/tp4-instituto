@@ -1,6 +1,7 @@
 package modelo;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class Curso {
     private String codigo;
@@ -13,7 +14,6 @@ public class Curso {
     private int vacantes;
 
     public Curso(int id_curso, String codigo, String idioma, String nivel, String turno, int cupo, BigDecimal cuota, int vacantes) {
-        
         this.id_curso = id_curso;
         this.codigo = codigo;
         this.idioma = idioma;
@@ -23,6 +23,11 @@ public class Curso {
         this.cuota = cuota;
         this.vacantes = vacantes;
     }
+    //Constructor sin id_curso: para crear un curso nuevo antes de guardarlo en la base
+    public Curso(String codigo, String idioma, String nivel, String turno, int cupo, BigDecimal cuota, int vacantes){
+        this(0, codigo, idioma, nivel, turno, cupo, cuota, vacantes);
+    }
+
     public int getIdCurso() { 
         return id_curso; 
     }
@@ -75,6 +80,18 @@ public class Curso {
 
     // no se guarda, se calcula
     public int getInscriptos() { return cupo - vacantes; }
+
+    @Override
+    public boolean equals(Object obj){
+        if(this == obj) return true;
+        if(obj == null|| getClass() != obj.getClass()) return false;
+        Curso otro = (Curso)obj;
+        return Objects.equals(codigo,otro.codigo);
+    }
+    @Override
+    public int hashCode(){
+        return Objects.hash(codigo);
+    }
 
     @Override
     public String toString() {
