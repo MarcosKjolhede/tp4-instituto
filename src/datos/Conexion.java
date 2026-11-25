@@ -21,7 +21,7 @@ public class Conexion {
 
     public static Connection abrir() throws SQLException {
         if (!creada) {
-            ejecutarScript("src/datos/instituto.sql");
+            ejecutarScript("src/instituto.sql");
             creada = true;
         }
         return DriverManager.getConnection(URL, USER, PASS);
