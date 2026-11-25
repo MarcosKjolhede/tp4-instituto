@@ -45,7 +45,7 @@ public class InscripcionDAO {
                 if (!rs.next()) {
                     return null;
                 }
-                return new Inscripcion(rs.getInt("id"), rs.getInt("alumno_id"), rs.getString("curso_codigo"), rs.getDate("fecha").toLocalDate(), rs.getBoolean("cuota_paga"));
+                return new Inscripcion(rs.getInt("id_alumno"), rs.getInt("id_curso"), rs.getDate("fecha").toLocalDate(), rs.getBoolean("cuota_paga"));
             }
         } catch (SQLException e) {
             throw TraductorDeErrores.traducir(e);
@@ -91,12 +91,13 @@ public class InscripcionDAO {
 
     /** Cambia la fecha y/o el estado de la cuota. No toca vacantes. */
     public void modificar(Inscripcion i) throws InstitutoException {
-        String sql = "UPDATE inscripcion SET fecha = ?, cuota_paga = ? WHERE id = ?";
+        String sql = "UPDATE inscripcion SET fecha = ?, cuota_paga = ? WHERE id_alumno = ? AND id_curso = ?";
         try(Connection con = Conexion.abrir();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setDate(1, Date.valueOf(i.getFecha()));
             ps.setBoolean(2, i.isCuotaPaga());
-            ps.setInt(3, i.getId());
+            ps.setInt(3, i.getIdAlumno());
+            ps.setInt(4, i.getIdCurso());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw TraductorDeErrores.traducir(e);
