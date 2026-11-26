@@ -10,6 +10,15 @@
 # ALUMNOS: ACOSTA Marcos, AREVALO Bautista, CEPEDA Ezequiel
 
 ------------------------------------------------------
+### 1. Compilacion
+Desde la carpeta raiz del repositorio, ejecutar: 
+````
+javac -d bin src/modelo/*.java src/app/*.java src/datos/*.java
+```````
+### 2. Ejecucion
+````
+java -cp bin app.Main
+````
 ------------------------------------------------------
 
 ## 1. ¿Qué pasa si dos personas usan el programa al mismo tiempo y se inscriben al último lugar de un curso?¿Qué hace su implementación?
